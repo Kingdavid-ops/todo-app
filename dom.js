@@ -1,23 +1,3 @@
-// const heading = document.getElementById('heading');
-// const h1 = document.getElementsByClassName('h1')[2];
-// console.log(h1);
-
-// const tag = document.getElementsByTagName('h1')[1];
-// console.log(tag);
-
-// const p = document.getElementsByClassName('p')[0];
-// console.log(p);
-
-// const text = document.getElementById('text');
-// console.log(text);
-
-// const enter = document.getElementById('enter');
-// console.log(enter);
-
-
-// querry selector is used to select querries like getElement.
-
-
 const input = document.getElementById('text');
 const enter = document.querySelector("#enter");
 const ul = document.querySelector("ul");
