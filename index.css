@@ -1,4 +1,4 @@
-
+/* Global box-sizing for consistent sizing */
 * {
     box-sizing: border-box;
 }
@@ -14,6 +14,25 @@ body {
     letter-spacing: 0.5px;
 }
 
+main {
+    background: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 12px 48px 0 rgba(120, 0, 120, 0.18);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 32px;
+    border: 1.5px solid rgba(255, 255, 255, 0.22);
+    padding: 5vw 6vw 4vw 6vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 0;
+    min-height: 260px;
+    width: 95vw;
+    max-width: 420px;
+    opacity: 0;
+    animation: fadeIn 3s forwards;
+    overflow: hidden;
+}
 
 h1 {
     opacity: 0;
@@ -33,12 +52,34 @@ h1:hover {
     text-shadow: 0 8px 32px #ff00cc55;
 }
 
+.input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeIn 6s 9s forwards;
+    background: rgba(255,255,255,0.28);
+    border-radius: 18px;
+    padding: 18px 22px;
+    box-shadow: 0 4px 24px rgba(120, 0, 120, 0.10);
+    border: 1.5px solid rgba(255,255,255,0.22);
+    margin-bottom: 18px;
+    transition: box-shadow 0.3s;
+    width: 100%;
+    max-width: 350px;
+    min-width: 0;
+}
+
 .input:focus-within {
     box-shadow: 0 8px 32px #ff00cc33;
 }
 
 #text {
-    width: 210px;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     outline: none;
     padding: 12px 16px;
     border: none;
@@ -128,7 +169,6 @@ li::before {
     content: "📝";
     position: absolute;
     left: 12px;
-    font-size: 1.2em;
 }
 
 .done {
@@ -172,5 +212,3 @@ li::before {
         max-width: 100%;
     }
 }
-
-/* ...existing code... */
