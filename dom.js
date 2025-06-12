@@ -23,68 +23,77 @@ const enter = document.querySelector("#enter");
 const ul = document.querySelector("ul");
 const info = document.querySelector("#info");
 
+// Save todos to localStorage
+function saveTodos() {
+    const todos = [];
+    document.querySelectorAll('.list').forEach(listDiv => {
+        const li = listDiv.querySelector('li');
+        todos.push({
+            text: li.textContent,
+            done: li.classList.contains('done')
+        });
+    });
+    localStorage.setItem('todos', JSON.stringify(todos));
+}
+
+// Load todos from localStorage
+function loadTodos() {
+    const todos = JSON.parse(localStorage.getItem('todos')) || [];
+    ul.innerHTML = '';
+    todos.forEach(todo => {
+        addTodoToDOM(todo.text, todo.done);
+    });
+}
+
+// Add a todo item to the DOM
+function addTodoToDOM(text, done = false) {
+    const remove = document.createElement("input");
+    remove.setAttribute("type", "button");
+    remove.setAttribute("class", "big");
+    remove.setAttribute("value", "❌");
+    const list = document.createElement("div");
+    list.setAttribute("class", "list");
+    const li = document.createElement("li");
+    li.appendChild(document.createTextNode(text));
+    if (done) li.classList.add("done");
+    list.appendChild(li);
+    list.appendChild(remove);
+    ul.appendChild(list);
+
+    // Toggle done
+    li.addEventListener("click", () => {
+        li.classList.toggle("done");
+        saveTodos();
+    });
+
+    // Remove todo
+    remove.addEventListener("click", () => {
+        list.remove();
+        saveTodos();
+    });
+}
+
+// Add new todo (button click)
 enter.addEventListener("click", () => {
-    if ((input.value != 0)) {
-
+    if (input.value.trim() !== "") {
         info.innerHTML = null;
-        const remove = document.createElement("input");
-        remove.setAttribute("type", "button");
-        remove.setAttribute("class", "big");
-        remove.setAttribute("value", "❌");
-        const list = document.createElement("div");
-        list.setAttribute("class", "list");
-        const li = document.createElement("li");
-        li.appendChild(document.createTextNode(input.value));
-        list.appendChild(li);
-        list.appendChild(remove);
-        ul.appendChild(list);
+        addTodoToDOM(input.value.trim());
         input.value = "";
-
-        // Add click event to li for line-through
-        li.addEventListener("click", () => {
-            li.classList.toggle("done");
-        });
-
-        remove.addEventListener("click", () => {
-            list.remove();
-        });
+        saveTodos();
     } else {
-        alert("Input field cannot be empty")
+        alert("Input field cannot be empty");
     }
 });
 
+// Add new todo (Enter key)
 input.addEventListener("keypress", (event) => {
-    if (input.value != 0 && event.keyCode === 13) {
-
+    if (input.value.trim() !== "" && (event.key === "Enter" || event.keyCode === 13)) {
         info.innerHTML = null;
-        const remove = document.createElement("input");
-        remove.setAttribute("type", "button");
-        remove.setAttribute("class", "big");
-        remove.setAttribute("value", "❌");
-        const list = document.createElement("div");
-        list.setAttribute("class", "list");
-        const li = document.createElement("li");
-        li.appendChild(document.createTextNode(input.value));
-        list.appendChild(li);
-        list.appendChild(remove);
-        ul.appendChild(list);
+        addTodoToDOM(input.value.trim());
         input.value = "";
-
-       
-        li.addEventListener("click", () => {
-            li.classList.toggle("done");
-        });
-
-        remove.addEventListener("click", () => {
-            list.remove();
-        });
+        saveTodos();
     }
 });
 
-
-
-
-
-
-
-
+// Load todos on page load
+window.addEventListener("DOMContentLoaded", loadTodos);
