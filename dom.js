@@ -52,7 +52,7 @@ function addTodoToDOM(text, done = false) {
         saveTodos();
     });
 }
-
+// this is a simple todo list application that allows users to add, remove, and mark todos as done. It uses localStorage to persist the todos across page reloads.
 // Add new todo (button click)
 enter.addEventListener("click", () => {
     if (input.value.trim() !== "") {
